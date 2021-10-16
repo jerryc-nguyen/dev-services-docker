@@ -6,7 +6,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - "../docker-volumes/postgres:/var/lib/postgresql/data"
+      - "../volumes/postgres:/var/lib/postgresql/data"
     env_file:
       - .env.development
       
@@ -17,7 +17,7 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - "../docker-volumes/redis:/data"
+      - "../volumes/redis:/data"
       - "./redis.conf:/usr/local/etc/redis/redis.conf"
 
   # https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
@@ -35,7 +35,7 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - "../docker-volumes/elasticsearch7:/usr/share/elasticsearch/data"
+      - "../volumes/elasticsearch7:/usr/share/elasticsearch/data"
     ports:
       - 9200:9200
 
@@ -53,7 +53,7 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - "../docker-volumes/elasticsearch7:/usr/share/elasticsearch/data"
+      - "../volumes/elasticsearch7:/usr/share/elasticsearch/data"
     ports:
       - 9200:9200
 
