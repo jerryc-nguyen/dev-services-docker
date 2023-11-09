@@ -1,4 +1,4 @@
-version: '3.2'
+version: "3.2"
 services:
   pg:
     restart: always
@@ -7,7 +7,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - '../volumes/postgres:/var/lib/postgresql/data'
+      - "../volumes/postgres:/var/lib/postgresql/data"
     env_file:
       - .env.development
 
@@ -19,26 +19,18 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - '../volumes/redis:/data'
-      - './redis.conf:/usr/local/etc/redis/redis.conf'
+      - "../volumes/redis:/data"
+      - "./redis.conf:/usr/local/etc/redis/redis.conf"
 
-  # https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
-  # https://www.docker.elastic.co/r/elasticsearch?limit=50&offset=50&show_snapshots=false&ordering=created_at
   es5:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.0
-    container_name: elasticsearch_5.6
-    environment:
-      - node.name=elasticsearch5
-      - cluster.name=elasticsearch5
-      - bootstrap.memory_lock=true
-      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
-      - xpack.security.enabled=false
+    image: elasticsearch_56
+    container_name: elasticsearch_56
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
-      - '../volumes/elasticsearch5:/usr/share/elasticsearch/data'
+      - "../volumes/elasticsearch5:/usr/share/elasticsearch/data"
     ports:
       - 9200:9200
 
@@ -46,17 +38,11 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
     container_name: elasticsearch_7.15
     environment:
-      - node.name=elasticsearch7
-      - cluster.name=elasticsearch7
-      - bootstrap.memory_lock=true
-      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
-      - cluster.initial_master_nodes=elasticsearch7
+      - discovery.type=single-node
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - '../volumes/elasticsearch7:/usr/share/elasticsearch/data'
     ports:
       - 9500:9200
 
@@ -64,8 +50,8 @@ services:
     container_name: mailcatcher
     image: schickling/mailcatcher
     ports:
-      - '1025:1025'
-      - '1080:1080'
+      - "1025:1025"
+      - "1080:1080"
   mongo:
     image: mongo:latest
     container_name: mongo
